@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>음식점 리스트</title>
+        <style>
+            /* 스타일 추가 */
+            header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                text-align: center;
+            }
+
+            h1,
+            button {
+                font-size: 24px;
+            }
+            button:hover {
+                background-color: #cccccc;
+            }
+            btn:hover {
+                background-color: #cccccc;
+            }
+
+            section {
+                text-align: left;
+            }
+
+            ul {
+                list-style: none;
+                display: flex;
+                justify-content: space-between;
+                padding: 0;
+            }
+
+            li {
+                margin: 0 10px;
+            }
+
+            a {
+                text-decoration: none;
+            }
+
+            .categoryRestaurantList:hover + .topMenu,
+            .topMenu:hover {
+                opacity: 1;
+                height: 200px;
+                visibility: visible;
+            }
+            .topMenu {
+                opacity: 0;
+                height: 0px;
+                visibility: hidden;
+                transition: opacity 0.2s ease-in-out;
+                transition: height 0.2s ease-in-out;
+            }
+            .categoryRestaurant {
+                width: 20%;
+            }
+            .restaurantName {
+                text-align: left;
+            }
+            .makeRoom {
+                width: 100%;
+                background-color: #ffdddd;
+                height: 0px;
+                visibility: hidden;
+                transition: height 0.2s ease-in-out;
+            }
+            .infiniteScroll {
+                overflow: auto;
+                overflow-x: hidden;
+                background-color: #dddddd;
+                width: 100%;
+                height: 100%;
+            }
+            .sortingType1 {
+                background-color: #cccccc;
+                border: 1px solid #aaaaaa;
+                float: left;
+                width: 70%;
+                height: 100%;
+                box-sizing: border-box;
+                text-align: center;
+            }
+            .sortingType2 {
+                background-color: #cccccc;
+                border: 1px solid #aaaaaa;
+                float: left;
+                width: 10%;
+                height: 100%;
+                box-sizing: border-box;
+                text-align: center;
+            }
+            .sortingListType1 {
+                background-color: #ffffff;
+                border: 1px solid #aaaaaa;
+                float: left;
+                width: 70%;
+                height: 100%;
+                box-sizing: border-box;
+                text-align: center;
+            }
+            .sortingListType2 {
+                background-color: #ffffff;
+                border: 1px solid #aaaaaa;
+                float: left;
+                width: 10%;
+                height: 100%;
+                box-sizing: border-box;
+                text-align: center;
+            }
+            .sortingListType3 {
+                background-color: #ffffff;
+                border: 1px solid #aaaaaa;
+                float: left;
+                width: 10%;
+                height: 100%;
+                box-sizing: border-box;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- 상단 서비스 공지사항 및 로그인 버튼 -->
+        <header>
+            <h1>
+                <button>서비스</button>
+                <button>공지사항</button>
+            </h1>
+            <button id="storageReset" onclick="localStorage.clear()">
+                초기화
+            </button>
+            <button id="loginButton">로그인</button>
+        </header>
+
+        <!-- 음식점 리스트 -->
+        <section>
+            <div class="categoryRestaurantList">
+                <h2>음식점 리스트</h2>
+            </div>
+            <ul class="topMenu" style="top: 5px">
+                <div class="categoryRestaurant">
+                    <div class="restaurantName">
+                        <font size="5">치킨</font><br />
+                    </div>
+                    <div class="restaurantList">
+                        <a
+                            href="javascript:void(0);"
+                            onclick="visibleMakeRoom(this.innerText);"
+                            >마슬랜</a
+                        ><br />
+                        <a
+                            href="javascript:void(0);"
+                            onclick="visibleMakeRoom(this.innerText);"
+                            >멕시카나</a
+                        ><br />
+                        <a
+                            href="javascript:void(0);"
+                            onclick="visibleMakeRoom(this.innerText);"
+                            >열날개</a
+                        ><br />
+                        <a
+                            href="javascript:void(0);"
+                            onclick="visibleMakeRoom(this.innerText);"
+                            >왕천파닭</a
+                        ><br />
+                        <a
+                            href="javascript:void(0);"
+                            onclick="visibleMakeRoom(this.innerText);"
+                            >큰통치킨</a
+                        ><br />
+                        <a
+                            href="javascript:void(0);"
+                            onclick="visibleMakeRoom(this.innerText);"
+                            >티바두마리치킨</a
+                        ><br />
+                        <a
+                            href="javascript:void(0);"
+                            onclick="visibleMakeRoom(this.innerText);"
+                            >페리카나 병천점</a
+                        ><br />
+                        <a
+                            href="javascript:void(0);"
+                            onclick="visibleMakeRoom(this.innerText);"
+                            >홉스</a
+                        ><br />
+                    </div>
+                </div>
+                <div class="categoryRestaurant">
+                    <div class="restaurantName">
+                        <font size="5">피자</font><br />
+                    </div>
+                    <div class="restaurantList">
+                        <a href="chicken.html">피자랠리</a><br />
+                    </div>
+                </div>
+                <div class="categoryRestaurant">
+                    <div class="restaurantName">
+                        <font size="5">도시락</font><br />
+                    </div>
+                    <div class="restaurantList">
+                        <a href="chicken.html">한솥도시락</a><br />
+                        <a href="chicken.html">왕십리야식</a><br />
+                    </div>
+                </div>
+                <div class="categoryRestaurant">
+                    <div class="restaurantName">
+                        <font size="5">중국집</font><br />
+                    </div>
+                    <div class="restaurantList">
+                        <a href="chicken.html">천안문</a><br />
+                        <a href="chicken.html">착한중국집</a><br />
+                    </div>
+                </div>
+                <div class="categoryRestaurant">
+                    <div class="restaurantName">
+                        <font size="5">족발</font><br />
+                    </div>
+                    <div class="restaurantList">
+                        <a href="chicken.html">가장 맛있는 족발</a><br />
+                        <a href="chicken.html">태선족발</a><br />
+                        <a href="chicken.html">팔팔족발</a><br />
+                    </div>
+                </div>
+            </ul>
+            <div class="makeRoom">
+                <div style="width: 100%; height: 15%">
+                    <div
+                        id="makeRoomContent"
+                        style="float: left; width: 50%; height: 100%"
+                    >
+                        <h2
+                            style="
+                                margin-block-start: 0em;
+                                margin-block-end: 0em;
+                            "
+                        >
+                            마슬랜
+                        </h2>
+                    </div>
+                    <button
+                        style="float: right"
+                        onclick="updateMainPageRoomList()"
+                    >
+                        X
+                    </button>
+                </div>
+                <div style="height: 10%" class="sorting">
+                    <a class="sortingType1">메뉴</a>
+                    <a class="sortingType2">가격</a>
+                    <a class="sortingType2">매수</a>
+                    <a class="sortingType2">제거</a>
+                </div>
+                <div style="height: 60%">
+                    <div class="infiniteScroll" id="makeMenuListArea">
+                        <div id="menuLastButton">
+                            <button
+                                style="
+                                    font-size: 15px;
+                                    width: 100%;
+                                    height: 100%;
+                                "
+                                onclick="addRoomList()"
+                            >
+                                +
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div style="height: 15%; width: 100%">
+                    <button
+                        style="height: 100%; float: left"
+                        onclick="updateNumberOfPeopleMainPage()"
+                        id="makeRoomHiddenBtn"
+                    >
+                        방만들기
+                    </button>
+                    <div
+                        style="
+                            padding: 0px 10px 0px 10px;
+                            float: left;
+                            font-size: 20px;
+                        "
+                    >
+                        참여 인원 수 :
+                    </div>
+                    <input
+                        id="makeRoomHeadCount"
+                        type="number"
+                        min="1"
+                        max="99"
+                        style="
+                            text-align: center;
+                            background-color: #ffffff;
+                            float: left;
+                            font-size: 15px;
+                            width: 9%;
+                            height: 80%;
+                        "
+                        value="1"
+                        onchange="updateMakeRoomPriceForOne()"
+                    />
+
+                    <div
+                        style="
+                            padding: 0px 10px 0px 100px;
+                            float: left;
+                            font-size: 20px;
+                        "
+                    >
+                        1인당 가격 :
+                    </div>
+                    <div
+                        id="makeRoomPriceForOne"
+                        style="float: left; font-size: 20px"
+                    >
+                        0
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 버스 시간표 -->
+        <section>
+            <h2>버스 시간표</h2>
+            <ul>
+                <li>시간표 1: 08:00 AM</li>
+                <li>시간표 2: 12:00 PM</li>
+                <li>시간표 3: 04:00 PM</li>
+            </ul>
+        </section>
+        <!-- 메인 페이지 (index.html) -->
+        <!-- ... (이전 코드 부분) -->
+
+        <!-- 메인 페이지에서 인원수 표시 -->
+        <section>
+            <h2>
+                <span>메인 페이지에서 인원수:</span>
+                <span id="mainPageNumberOfPeople">0</span>
+            </h2>
+        </section>
+
+        <!-- 음식 대기방 리스트 -->
+        <section>
+            <h2>
+                <span>음식 대기방 리스트</span>
+            </h2>
+            <div>
+                <div class="sorting">
+                    <a class="sortingType1">방제목</a>
+                    <a class="sortingType2">현재 인원</a>
+                    <a class="sortingType2">최대 인원</a>
+                    <a class="sortingType2">참가</a>
+                </div>
+                <div style="height: 400px">
+                    <div class="infiniteScroll" id="roomListArea"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ... (나머지 코드 부분) -->
+
+        <script>
+            /** 페이지 로드 시 메인 페이지에서 인원수 업데이트 객체 형태*/
+            const categoryFoodList = document.querySelector(
+                ".categoryRestaurantList"
+            );
+            const categoryTopMenu = document.querySelector(".topMenu");
+            let topMenuTimer;
+            var count = 0;
+            const dicRestaurant = {
+                마슬랜: [
+                    ["후라이드 한마리", "17000"],
+                    ["후라이드 한마리 반반", "19000"],
+                    ["후라이드 두마리", "22000"],
+                    ["후라이드 두마리 반반반", "25000"],
+                    ["후라이드 세마리", "30000"],
+                    ["+ 양념 소스", "1000"],
+                    ["+ 매운 양념 소스", "1000"],
+                    ["+ 데리 간장 소스", "1000"],
+                    ["+ 마늘 간장 소스", "1000"],
+                    ["+ 겨자 소스", "1000"],
+                    ["+ 샤워 크림 소스", "1000"],
+                    ["+ 어니언 소스", "1000"],
+                    ["+ 갈릭 소스", "1000"],
+                    ["+ 고추마요 소스", "1000"],
+                    ["+ 핫칠리 소스", "1000"],
+                    ["+ 치즈 시즈닝 소스", "1000"],
+                    ["+ 칠리 시즈닝 소스", "1000"],
+                    ["+ 허니 버터 시즈닝 소스", "1000"],
+                    ["+ 양념 쉬프림 소스", "1000"],
+                    ["+ 양파 추가", "1000"],
+                    ["+ 파 추가", "1000"],
+                    ["피자치탕(소)", "20000"],
+                    ["만두피자치탕(소)", "20000"],
+                    ["감자피자치탕(소)", "20000"],
+                    ["데리야끼치탕(소)", "20000"],
+                    ["고구마피자치탕(소)", "20000"],
+                    ["김말이피자치탕(소)", "20000"],
+                    ["김치피자치탕(소)", "20000"],
+                    ["피자치탕(중)", "24000"],
+                    ["만두피자치탕(중)", "24000"],
+                    ["감자피자치탕(중)", "24000"],
+                    ["데리야끼치탕(중)", "24000"],
+                    ["고구마피자치탕(중)", "24000"],
+                    ["김말이피자치탕(중)", "24000"],
+                    ["김치피자치탕(중)", "24000"],
+                    ["피자치탕(대)", "28000"],
+                    ["만두피자치탕(대)", "28000"],
+                    ["감자피자치탕(대)", "28000"],
+                    ["데리야끼치탕(대)", "28000"],
+                    ["고구마피자치탕(대)", "28000"],
+                    ["김말이피자치탕(대)", "28000"],
+                    ["김치피자치탕(대)", "28000"],
+                    ["피자치탕(특대)", "32000"],
+                    ["만두피자치탕(특대)", "32000"],
+                    ["감자피자치탕(특대)", "32000"],
+                    ["데리야끼치탕(특대)", "32000"],
+                    ["고구마피자치탕(특대)", "32000"],
+                    ["김말이피자치탕(특대)", "32000"],
+                    ["김치피자치탕(특대)", "32000"],
+                    ["+ 치즈 추가", "1000"],
+                    ["+ 매운맛 추가", "1000"],
+                    ["+ 불피치맛 추가", "1000"],
+                    ["+ 웨지감자 추가", "2000"],
+                    ["+ 고구마 추가", "2000"],
+                    ["+ 만두 추가", "2000"],
+                    ["+ 김말이 추가", "2000"],
+                    ["고구마치즈스틱 + 불", "10000"],
+                    ["양념감자튀김", "6000"],
+                    ["케이준감자튀김", "6000"],
+                    ["국물떡볶이", "8000"],
+                    ["+ 콜라 1.25L", "2000"],
+                ],
+                멕시카나: [
+                    ["후라이드", "15000"],
+                    ["양념 치킨", "16000"],
+                    ["반반 치킨(양념반, 후라이드반)", "16000"],
+                    ["순살 강정 치킨", "16000"],
+                    ["순살 허브 치킨", "16500"],
+                    ["순살 크런키", "16000"],
+                    ["골드 한마리", "17000"],
+                    ["참숯 불 바베큐", "16000"],
+                    ["골드 윙", "17000"],
+                    ["매운 양념 치킨", "17000"],
+                    ["땡초 치킨", "17000"],
+                    ["멕시 윙(날개)", "17000"],
+                    ["파닭", "17000"],
+                    ["순살 파닭", "17000"],
+                    ["스페셜 윙", "17000"],
+                    ["멕시 듀오", "17000"],
+                    ["멕시 핀", "17000"],
+                    ["세트 1 : 후라이드 + 양념 치킨", "20000"],
+                    ["세트 1 : 순살 후라이드 + 순살 양념 치킨", "20000"],
+                    ["세트 2 : 후라이드 + 간장 치킨", "20000"],
+                    ["세트 2 : 순살 후라이드 + 순살 간장 치킨", "20000"],
+                    ["세트 3 : 양념 치킨 + 간장 치킨", "21000"],
+                    ["세트 3 : 순살 양념 치킨 + 순살 간장 치킨", "21000"],
+                    ["세트 4 : 파닭 + 양념 치킨", "22000"],
+                    ["세트 4 : 파닭 + 간장 치킨", "22000"],
+                    ["세트 4 : 파닭 + 후라이드", "22000"],
+                    ["세트 4 : 순살 파닭 + 순살 양념 치킨", "22000"],
+                    ["세트 4 : 순살 파닭 + 순살 간장 치킨", "22000"],
+                    ["세트 4 : 순살 파닭 + 순살 후라이드", "22000"],
+                    ["닭가슴살 샐러드", "12000"],
+                    ["K-준 안심샐러드", "12000"],
+                    ["훈제 치킨", "14000"],
+                ],
+                열날개: [
+                    ["불 날개", "8500"],
+                    ["불 닭발", "9000"],
+                    ["불 닭", "17000"],
+                    ["불 닭 (+ Size up)", "22000"],
+                    ["불오돌뼈", "15000"],
+                    ["뼈없는 불닭발", "14000"],
+                    ["국물닭발", "19000"],
+                    ["치즈불닭", "20000"],
+                    ["옛날 통닭", "11000"],
+                    ["똥집 소금구이", "15000"],
+                    ["계란찜", "6000"],
+                    ["주먹밥", "2000"],
+                ],
+                왕천파닭: [
+                    ["왕천파닭", "20000"],
+                    ["순살파닭", "20000"],
+                    ["순살양념", "21000"],
+                    ["순살간장", "21000"],
+                    ["순살반반 파닭 + 양념", "21000"],
+                    ["순살반반 양념 + 간장", "21000"],
+                    ["순살반반 간장 + 파닭", "21000"],
+                    ["순살매운양념", "21000"],
+                    ["똥집튀김", "15000"],
+                    ["똥집양념", "16000"],
+                    ["똥집간장", "16000"],
+                    ["똥집반반 튀김 + 양념", "16000"],
+                    ["똥집반반 양념 + 간장", "16000"],
+                    ["똥집반반 간장 + 튀김", "16000"],
+                    ["음료수 0.5L", "2000"],
+                    ["음료수 1.25L", "3000"],
+                ],
+                큰통치킨: [
+                    ["크리스피", "14000"],
+                    ["순살 크래커", "16000"],
+                    ["양념 순살 크래커", "17000"],
+                    ["간장 순살 크래커", "17000"],
+                    ["매운 양념 순살 크래커", "18000"],
+                    ["마늘 양념 순살 크래커", "18000"],
+                    ["카레 순살 크래커", "18000"],
+                    ["다리 치킨", "16000"],
+                    ["날개 치킨", "16000"],
+                    ["양념 치킨", "15000"],
+                    ["간장 치킨", "15000"],
+                    ["마늘 치킨", "16000"],
+                    ["카레 치킨", "16000"],
+                    ["매운 양념", "16000"],
+                    ["순살 변경", "2000"],
+                    ["크림 어니언 치킨 순살", "18000"],
+                    ["크림 어니언 치킨 크리스피", "16000"],
+                    ["청고추 드레싱 치킨 순살", "18000"],
+                    ["청고추 드레싱 치킨 크리스피", "16000"],
+                    ["까르보나라 치킨 순살", "18000"],
+                    ["까르보나라 치킨 크리스피", "16000"],
+                    ["케이준", "8000"],
+                    ["감자튀김", "4000"],
+                ],
+                티바두마리치킨: [
+                    ["1마리 후라이드", "16500"],
+                    ["양념 반마리 변경", "500"],
+                    ["꿀간장 반마리 변경", "500"],
+                    ["알싸한마늘간장 반마리 변경", "500"],
+                    ["고추마늘간장 반마리 변경", "500"],
+                    ["마늘빵 변경", "500"],
+                    ["땡초 반마리 변경", "1000"],
+                    ["치즈 반마리 변경", "1000"],
+                    ["양념 치킨", "17500"],
+                    ["꿀간장 치킨", "17500"],
+                    ["알싸한마늘간장 치킨", "17500"],
+                    ["고추마늘간장 치킨", "17500"],
+                    ["마늘빵 치킨", "17500"],
+                    ["땡초 치킨", "18500"],
+                    ["치즈 치킨", "18500"],
+                    ["2마리 후라이드", "24500"],
+                    ["양념 한마리 변경", "1000"],
+                    ["꿀간장 한마리 변경", "1000"],
+                    ["알싸한마늘간장 한마리 변경", "2000"],
+                    ["고추마늘간장 한마리 변경", "2000"],
+                    ["마늘빵 한마리 변경", "2000"],
+                    ["땡초 한마리 변경", "3000"],
+                    ["치즈스노우 한마리 변경", "3000"],
+                    ["파닭 한마리 변경", "3500"],
+                    ["땡초 불 파닭 한마리 변경", "3500"],
+                    ["크리미어니언 한마리 변경", "3500"],
+                    ["땡초어니언 한마리 변경", "3500"],
+                    ["청양고추 마요 한마리 변경", "3500"],
+                    ["파닭", "19000"],
+                    ["땡초 불 파닭", "19000"],
+                    ["크리미어니언", "19000"],
+                    ["땡초어니언", "19000"],
+                    ["청양고추 마요", "19000"],
+                    ["황금감자", "5000"],
+                    ["버터갈릭 감자튀김", "6000"],
+                    ["떡볶이(1~2인분)", "5000"],
+                    ["떡볶이(2~3인분)", "10000"],
+                    ["똥집튀김&감자튀김", "9000"],
+                ],
+                "페리카나 병천점": [
+                    ["후라이드", "16000"],
+                    ["양념치킨", "17000"],
+                    ["매운 후라이드", "17000"],
+                    ["간장 치킨", "17000"],
+                    ["마늘 치킨", "18000"],
+                    ["치즈뿌리오", "18000"],
+                    ["핫데블 치킨", "19000"],
+                    ["파닭 치킨", "18000"],
+                    ["맵삭 치킨", "19000"],
+                    ["신선윙 후라이드 치킨", "18000"],
+                    ["신선윙 양념 치킨", "19000"],
+                    ["신선핀 후라이드 치킨", "18000"],
+                    ["신선핀 양념 치킨", "19000"],
+                    ["순살 변경", "2000"],
+                ],
+                홉스: [
+                    ["국물떡볶이", "7000"],
+                    ["치즈떡볶이", "8000"],
+                    ["로제떡볶이", "9000"],
+                    ["허니갈릭프라이", "7000"],
+                    ["불고기치즈프라이", "10000"],
+                    ["왕새우튀김", "11000"],
+                    ["버팔로윙", "15000"],
+                    ["홉스순살치킨", "18000"],
+                    ["홉스양념치킨(순한맛)", "20000"],
+                    ["홉스양념치킨(매운맛)", "20000"],
+                    ["홉스양념치킨(간장맛)", "20000"],
+                    ["로제파스타치킨", "22000"],
+                    ["크림파스타치킨", "22000"],
+                    ["세트 1 : 국물떡볶이 + 홉스순살치킨", "21000"],
+                    ["세트 2 : 허니갈릭프라이 + 홉스치킨", "21000"],
+                    ["세트 3 : 치즈떡볶이 + 불치즈프라이", "16000"],
+                    ["세트 4 : 치즈떡볶이 + 왕새우튀김", "17000"],
+                    ["세트 5 : 허니갈릭 + 로제파스타치킨", "25000"],
+                    ["세트 6 : 로제떡볶이 + 홉스순살치킨", "25000"],
+                    ["세트 7 : 허니갈릭 + 크림파스타치킨", "25000"],
+                    ["세트 8 : 로제떡볶이 + 왕새우튀김", "18000"],
+                    ["세트 9 : 불치즈프라이 + 홉스치킨", "26000"],
+                    ["음료수 사이즈 업", "1000"],
+                    ["홉스치킨 감튀 추가", "4000"],
+                    ["참치 폭탄 주먹밥", "4000"],
+                    ["김가루밥", "2000"],
+                    ["소세지 10개(로떡)", "3000"],
+                    ["납작당면(로떡)", "2000"],
+                ],
+            };
+
+            categoryFoodList.addEventListener("mouseenter", () => {
+                clearTimeout(topMenuTimer);
+                categoryTopMenu.style.visibility = "visible";
+            });
+            categoryFoodList.addEventListener("mouseleave", () => {
+                topMenuTimer = setTimeout(() => {
+                    categoryTopMenu.style.visibility = "hidden";
+                }, 200);
+            });
+            categoryTopMenu.addEventListener("mouseenter", () => {
+                if (categoryTopMenu.style.visibility == "visible") {
+                    clearTimeout(topMenuTimer);
+                    categoryTopMenu.style.visibility = "visible";
+                }
+            });
+            categoryTopMenu.addEventListener("mouseleave", () => {
+                topMenuTimer = setTimeout(() => {
+                    categoryTopMenu.style.visibility = "hidden";
+                }, 200);
+            });
+
+            try {
+                updateMainPageNumberOfPeople();
+                updateMainPageRoomList();
+            } catch (e) {
+                //alert(e.name + ", " + e.message);
+            }
+
+            function visibleMakeRoom(name) {
+                hiddenMakeRoom();
+                const makeRoomHiddenBtnElement =
+                    document.querySelector(".makeRoom");
+                makeRoomHiddenBtnElement.style.visibility = "visible";
+                makeRoomHiddenBtnElement.style.height = "300px";
+                const child1 = document.querySelector("#makeRoomContent");
+                child1.innerHTML =
+                    "<h2 style='margin-block-start: 0em; margin-block-end: 0em;'>" +
+                    name +
+                    "</h2>";
+                updateMakeRoomPriceForOne();
+            }
+            function hiddenMakeRoom() {
+                const makeRoomHiddenBtnElement =
+                    document.querySelector(".makeRoom");
+                makeRoomHiddenBtnElement.style.visibility = "hidden";
+                makeRoomHiddenBtnElement.style.height = "0px";
+                headCount = document.querySelector("#makeRoomHeadCount");
+                headCount.value = "1";
+                const childInfiniteScroll =
+                    document.querySelector("#makeMenuListArea");
+                while (childInfiniteScroll.childElementCount > 1) {
+                    childInfiniteScroll.removeChild(
+                        childInfiniteScroll.firstElementChild
+                    );
+                }
+            }
+            //
+            function addRoomList() {
+                const MenuList = document.querySelector("#makeMenuListArea");
+                const beforeMenu = document.querySelector("#menuLastButton");
+                const menuName =
+                    document.querySelector("#makeRoomContent").textContent;
+                var menu = document.createElement("div");
+                menu.className = "menuPanel";
+                menu.id = "menu" + count;
+                count++;
+
+                const createMenuElement0 = document.createElement("select");
+                createMenuElement0.style =
+                    "float: left; font-size: 15px; width: 70%; height: 100%;";
+                createMenuElement0.onchange = function () {
+                    this.nextElementSibling.textContent =
+                        dicRestaurant[menuName][this.value][1];
+                    updateMakeRoomPriceForOne();
+                };
+                menu.appendChild(createMenuElement0);
+
+                for (i in dicRestaurant[menuName]) {
+                    const createMenuselectElement0 =
+                        document.createElement("option");
+                    createMenuselectElement0.value = i;
+                    createMenuselectElement0.innerText =
+                        dicRestaurant[menuName][i][0];
+                    createMenuElement0.appendChild(createMenuselectElement0);
+                }
+
+                const createMenuElement1 = document.createElement("div");
+                createMenuElement1.style =
+                    "text-align: center; background-color: #ffffff; float: left; font-size: 15px; width: 10%; height: 100%;";
+                createMenuElement1.textContent = dicRestaurant[menuName][0][1];
+                menu.appendChild(createMenuElement1);
+
+                const createMenuElement2 = document.createElement("input");
+                createMenuElement2.type = "number";
+                createMenuElement2.min = "1";
+                createMenuElement2.max = "99";
+                createMenuElement2.style =
+                    "text-align: center; background-color: #ffffff; float: left; font-size: 15px; width: 9%; height: 100%;";
+                createMenuElement2.value = 1;
+                createMenuElement2.onchange = function () {
+                    updateMakeRoomPriceForOne();
+                };
+                menu.appendChild(createMenuElement2);
+
+                const createMenuElement3 = document.createElement("button");
+                createMenuElement3.style =
+                    "float: left; font-size: 15px; width: 10%; height: 100%;";
+                createMenuElement3.innerText = "X";
+                createMenuElement3.onclick = function () {
+                    createMenuElement3.parentElement.remove();
+                    updateMakeRoomPriceForOne();
+                };
+                menu.appendChild(createMenuElement3);
+
+                MenuList.insertBefore(menu, beforeMenu);
+                updateMakeRoomPriceForOne();
+            }
+
+            function updateNumberOfPeopleMainPage() {
+                // 인원수 입력 필드의 값을 가져오기
+                const numberOfPeopleModal =
+                    document.querySelector("#makeRoomHeadCount").value;
+                const forOnePrice = document.querySelector(
+                    "#makeRoomPriceForOne"
+                ).textContent;
+                const menuName =
+                    document.querySelector("#makeRoomContent").textContent;
+
+                const childInfiniteScroll =
+                    document.querySelector("#makeMenuListArea");
+                const lenScroll = childInfiniteScroll.childElementCount;
+                var priceChild = childInfiniteScroll.firstElementChild;
+
+                currentChickenName = "[" + menuName + "] ";
+                for (i = 0; i < lenScroll - 1; i++) {
+                    var children = priceChild.childNodes;
+                    currentChickenName +=
+                        dicRestaurant[menuName][children[0].value][0] +
+                        " " +
+                        children[2].value +
+                        "개, ";
+                    priceChild = priceChild.nextElementSibling;
+                }
+
+                currentChickenName += "인당 " + parseInt(forOnePrice) + "원";
+
+                // 메인 페이지로 값을 전달하기 위해 localStorage를 사용
+                var a = [currentChickenName, 1, numberOfPeopleModal];
+                console.log(a);
+
+                var getRoom = localStorage.getItem("room");
+                console.log(getRoom);
+                if (getRoom == null) {
+                    var list = [];
+                } else {
+                    var list = JSON.parse(getRoom);
+                }
+                list.push(a);
+                localStorage.setItem("room", JSON.stringify(list));
+
+                hiddenMakeRoom();
+                updateMainPageRoomList();
+            }
+
+            function updateMakeRoomPriceForOne() {
+                price = 0;
+
+                textPrice = document.querySelector("#makeRoomPriceForOne");
+                headCount = document.querySelector("#makeRoomHeadCount");
+                const childInfiniteScroll =
+                    document.querySelector("#makeMenuListArea");
+                const lenScroll = childInfiniteScroll.childElementCount;
+                var priceChild = childInfiniteScroll.firstElementChild;
+
+                for (i = 0; i < lenScroll - 1; i++) {
+                    var children = priceChild.childNodes;
+                    price += children[1].textContent * children[2].value;
+
+                    priceChild = priceChild.nextElementSibling;
+                }
+
+                textPrice.textContent = price / headCount.value;
+            }
+
+            // 치킨 메뉴 페이지에서 값을 받아와 메인 페이지에 업데이트
+            function updateMainPageNumberOfPeople() {
+                var itemRoomList = JSON.parse(localStorage.getItem("room"));
+                const numberOfPeopleElement = document.getElementById(
+                    "mainPageNumberOfPeople"
+                );
+
+                numberOfPeopleElement.textContent =
+                    itemRoomList[itemRoomList.length - 1][2];
+            }
+
+            // 치킨 메뉴 페이지에서 값 받아온 거
+            function updateMainPageRoomList() {
+                resetMainPageRoomList();
+                var itemRoomList = JSON.parse(localStorage.getItem("room"));
+                var roomList = document.getElementById("roomListArea");
+
+                for (var i = 0; i < itemRoomList.length; ++i) {
+                    var createroom = document.createElement("div");
+                    createroom.id = "room" + i;
+
+                    const createRoomElement0 = document.createElement("a");
+                    createRoomElement0.classList.add("sortingListType1");
+                    createRoomElement0.innerHTML = itemRoomList[i][0];
+                    createroom.appendChild(createRoomElement0);
+                    const createRoomElement1 = document.createElement("a");
+                    createRoomElement1.classList.add("sortingListType2");
+                    createRoomElement1.innerHTML = itemRoomList[i][1];
+                    createroom.appendChild(createRoomElement1);
+                    const createRoomElement2 = document.createElement("a");
+                    createRoomElement2.classList.add("sortingListType2");
+                    createRoomElement2.innerHTML = itemRoomList[i][2];
+                    createroom.appendChild(createRoomElement2);
+                    const createRoomElement3 = document.createElement("btn");
+                    createRoomElement3.classList.add("sortingListType3");
+                    createRoomElement3.onclick = function () {
+                        try {
+                            var cur = this.previousSibling.previousSibling;
+                            var full = this.previousSibling;
+                            if (cur.textContent == full.textContent) {
+                                throw {
+                                    name: "isMaxPeople",
+                                    message: "정원 초과입니다.",
+                                };
+                            } else
+                                cur.textContent = parseInt(cur.textContent) + 1;
+                        } catch (e) {
+                            alert(e.name + "," + e.message);
+                        }
+                    };
+                    createRoomElement3.innerHTML = "참가";
+                    createroom.appendChild(createRoomElement3);
+
+                    roomList.appendChild(createroom);
+                }
+            }
+            function resetMainPageRoomList() {
+                const roomList = document.getElementById("roomListArea");
+                lenRoomList = roomList.childElementCount;
+                for (i = lenRoomList - 1; i >= 0; i--) {
+                    roomList.removeChild(roomList.childNodes[i]);
+                }
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>치킨 메뉴</title>
+        <style>
+            .menu-frame {
+                border: 2px solid #000;
+                padding: 10px;
+                margin: 10px;
+                width: calc(30% - 20px);
+                float: left;
+                transition: background-color 0.3s; /* 호버 시 색상 전환을 부드럽게 만들기 위한 트랜지션 설정 */
+                position: relative; /* 부모 요소로부터의 상대 위치 설정 */
+                background-color: #ffcccc; /* 기본 배경색 설정 */
+            }
+
+            .menu-frame:hover {
+                background-color: blue; /* 호버 시 배경색 변경 */
+            }
+
+            ul {
+                list-style: none;
+            }
+
+            .clearfix::after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+
+            /* 각 메뉴에 다른 배경색 지정 */
+
+            /* 호버 시 경고 메시지를 표시하는 스타일 */
+            .hover-alert {
+                display: none;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: white;
+                padding: 10px;
+                border: 1px solid #000;
+                color: red;
+            }
+
+            .menu-frame:hover .hover-alert {
+                display: block;
+            }
+            /* 모달 스타일 */
+            .modal {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.7);
+                z-index: 1;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .modal-content {
+                background-color: white;
+                padding: 20px;
+                border: 1px solid #000;
+                border-radius: 4px;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="menu-frame" onclick="openModal('후라이드 치킨')">
+            <h2>후라이드 치킨</h2>
+            <ul>
+                <li>전화 번호: 123-456-7890</li>
+                <li>가격: $10.99</li>
+            </ul>
+            <div class="hover-alert">호버 했음!</div>
+        </div>
+
+        <div class="menu-frame" onclick="openModal('양념 치킨')">
+            <h2>양념 치킨</h2>
+            <ul>
+                <li>전화 번호: 123-456-7891</li>
+                <li>가격: $11.99</li>
+            </ul>
+            <div class="hover-alert">호버 했음!</div>
+        </div>
+
+        <div class="menu-frame" onclick="openModal('간장 치킨')">
+            <h2>간장 치킨</h2>
+            <ul>
+                <li>전화 번호: 123-456-7892</li>
+                <li>가격: $12.99</li>
+            </ul>
+            <div class="hover-alert">호버 했음!</div>
+        </div>
+
+        <div class="menu-frame" onclick="openModal('마늘 치킨')">
+            <h2>마늘 치킨</h2>
+            <ul>
+                <li>전화 번호: 123-456-7893</li>
+                <li>가격: $13.99</li>
+            </ul>
+            <div class="hover-alert">호버 했음!</div>
+        </div>
+
+        <div class="menu-frame" onclick="openModal('치즈 치킨')">
+            <h2>치즈 치킨</h2>
+            <ul>
+                <li>전화 번호: 123-456-7894</li>
+                <li>가격: $14.99</li>
+            </ul>
+            <div class="hover-alert">호버 했음!</div>
+        </div>
+
+        <div class="menu-frame" onclick="openModal('핫 양념 치킨')">
+            <h2>핫 양념 치킨</h2>
+            <ul>
+                <li>전화 번호: 123-456-7895</li>
+                <li>가격: $15.99</li>
+            </ul>
+            <div class="hover-alert">호버 했음!</div>
+        </div>
+
+        <div class="menu-frame" onclick="openModal('레드핫 치킨')">
+            <h2>레드핫 치킨</h2>
+            <ul>
+                <li>전화 번호: 123-456-7896</li>
+                <li>가격: $16.99</li>
+            </ul>
+            <div class="hover-alert">호버 했음!</div>
+        </div>
+
+        <div class="menu-frame" onclick="openModal('허니 머스터드 치킨')">
+            <h2>허니 머스터드 치킨</h2>
+            <ul>
+                <li>전화 번호: 123-456-7897</li>
+                <li>가격: $17.99</li>
+            </ul>
+            <div class="hover-alert">호버 했음!</div>
+        </div>
+
+        <div class="menu-frame" onclick="openModal('간마 시금치 치킨')">
+            <h2>간마 시금치 치킨</h2>
+            <ul>
+                <li>전화 번호: 123-456-7898</li>
+                <li>가격: $18.99</li>
+            </ul>
+            <div class="hover-alert">호버 했음!</div>
+        </div>
+
+        <div class="menu-frame" onclick="openModal('소금 치킨')">
+            <h2>소금 치킨</h2>
+            <ul>
+                <li>전화 번호: 123-456-7899</li>
+                <li>가격: $19.99</li>
+            </ul>
+            <div class="hover-alert">호버 했음!</div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <!-- 치킨 메뉴 페이지 (chicken.html) -->
+        <!-- ... (이전 코드 부분) -->
+
+        <!-- 모달 창 내부 -->
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <h2>몇 명이서 드실건가요?</h2>
+                <input
+                    type="number"
+                    id="numberOfPeopleModal"
+                    placeholder="인원 수"
+                />
+                <button
+                    onclick="try{updateNumberOfPeopleMainPage()}catch(e){alert(e.name + ',' + e.message)}"
+                >
+                    확인
+                </button>
+            </div>
+        </div>
+
+        <!-- ... (나머지 코드 부분) -->
+
+        <div class="clearfix"></div>
+
+        <script>
+            var currentChickenName;
+
+            function openModal(chickenName) {
+                //localStorage.clear();
+                currentChickenName = chickenName;
+                document.getElementById("myModal").style.display = "block";
+            }
+
+            function closeModal() {
+                document.getElementById("myModal").style.display = "none";
+            }
+            // 치킨 메뉴 페이지 (chicken.html) 스크립트 부분
+            function updateNumberOfPeopleMainPage() {
+                // 인원수 입력 필드의 값을 가져오기
+                const numberOfPeopleModal = document.getElementById(
+                    "numberOfPeopleModal"
+                ).value;
+
+                if (numberOfPeopleModal < 1) {
+                    closeModal();
+                    throw {
+                        name: "isNegativeNumber",
+                        message: "음수 혹은 문자가 입력되었습니다.",
+                    };
+                }
+
+                // 메인 페이지로 값을 전달하기 위해 localStorage를 사용
+                var a = [currentChickenName, 1, numberOfPeopleModal];
+                console.log(a);
+
+                var getRoom = localStorage.getItem("room");
+                console.log(getRoom);
+                if (getRoom == null) {
+                    var list = [];
+                } else {
+                    var list = JSON.parse(getRoom);
+                }
+                list.push(a);
+                localStorage.setItem("room", JSON.stringify(list));
+
+                // 모달 창 닫기
+                closeModal();
+            }
+        </script>
+    </body>
+</html>
